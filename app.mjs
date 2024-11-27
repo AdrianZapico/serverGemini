@@ -6,7 +6,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3001;
+//const port = process.env.PORT || 3001;
 
 const vercelUrl = 'https://server-gemini.vercel.app/'; 
 
@@ -32,6 +32,6 @@ app.post('/generate', async (req, res) => {
     }
 });
 
-app.listen(port, () => {
+app.listen(vercelUrl, () => {
     console.log(`Server listening on port 1  ${vercelUrl}`);
 });
