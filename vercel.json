@@ -1,15 +1,18 @@
 {
-    "version": 2,
-    "builds": [
+  "headers": [
       {
-        "src": "app.mjs",
-       "use":"@vercel/node"
+          "for": "/generate",
+          "headers": [
+              {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:3000" 
+              },
+              {
+                  "key": "Access-Control-Allow-Methods",
+                  "value": "GET, POST, PUT, DELETE, OPTIONS" 
+              }
+              
+          ]
       }
-    ],
-    "routes":[
-        {
-            "src":"app.mjs",
-            "dest":"/"
-        }
-    ]
-  }
+  ]
+}
