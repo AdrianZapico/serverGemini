@@ -8,28 +8,30 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3001;
 
+const vercelUrl = 'https://server-gemini.vercel.app/'; 
+
 app.use(cors());
-app.use(express.json()); 
+app.use(express.json());
 
 app.post('/generate', async (req, res) => {
-  const { prompt } = req.body;
+    const { prompt } = req.body;
 
-  if (!prompt) {
-    return res.status(400).json({ error: 'Prompt is required' });
-  }
+    if (!prompt) {
+        return res.status(400).json({ error: 'Prompt is required' });
+    }
 
-  const genAI = new GoogleGenerativeAI(process.env.API_KEY);
-  const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    const genAI = new GoogleGenerativeAI(process.env.API_KEY);
+    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
-  try {
-    const result = await model.generateContent(prompt);
-    res.json({ response: result.response.text() });
-  } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ error: 'Ocorreu um erro' });
-  }
+    try {
+        const result = await model.generateContent(prompt);
+        res.json({ response: result.response.text() });
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'An error occurred' });
+    }
 });
 
 app.listen(port, () => {
-  console.log(`Server rodando na porta 1 ${port}`);
+    console.log(`Server listening on port 1  ${port}`);
 });
