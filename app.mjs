@@ -6,10 +6,10 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
-const port = 3001;
+const port = process.env.PORT || 3001;
 
 app.use(cors());
-app.use(express.json()); // Parse JSON request bodies
+app.use(express.json()); 
 
 app.post('/generate', async (req, res) => {
   const { prompt } = req.body;
@@ -26,10 +26,10 @@ app.post('/generate', async (req, res) => {
     res.json({ response: result.response.text() });
   } catch (error) {
     console.error('Error:', error);
-    res.status(500).json({ error: 'An error occurred' });
+    res.status(500).json({ error: 'Ocorreu um erro' });
   }
 });
 
 app.listen(port, () => {
-  console.log(`Server listening on port 1  ${port}`);
+  console.log(`Server rodando na porta 1 ${port}`);
 });
