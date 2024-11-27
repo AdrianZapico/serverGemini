@@ -33,5 +33,5 @@ app.post('/generate', async (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Server listening on port 1  ${port}`);
+    console.log(`Server listening on port 1  ${vercelUrl}`);
 });
