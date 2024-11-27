@@ -6,13 +6,15 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
-//const port = process.env.PORT || 3001; // Use environment variable for port
+const port = process.env.PORT || 3001;
 
 app.use(cors({
-  origin: ['robot-test-gemini.netlify.app'], // Specify allowed origins for CORS
-  credentials: true // Allow cookies for authenticated requests (if applicable)
+  origin: ['https://robot-test-gemini.netlify.app', 'http://localhost:3000'],
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type'],
+  credentials: true
 }));
-app.use(express.json()); // Parse incoming JSON data
+app.use(express.json());
 
 app.post('/generate', async (req, res) => {
   const { prompt } = req.body;
@@ -25,7 +27,12 @@ app.post('/generate', async (req, res) => {
     const genAI = new GoogleGenerativeAI({ apiKey: process.env.API_KEY });
     const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
     const result = await model.generateContent(prompt);
-    res.json({ response: result.response.text() });
+
+    if (result?.response?.text) {
+      res.json({ response: result.response.text });
+    } else {
+      res.status(500).json({ error: 'Invalid response from AI model' });
+    }
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ error: 'An error occurred' });
