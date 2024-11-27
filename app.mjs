@@ -6,10 +6,10 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3001; // Use environment variable for port
+//const port = process.env.PORT || 3001; // Use environment variable for port
 
 app.use(cors({
-  origin: ['https://localhost:3000'], // Specify allowed origins for CORS
+  origin: ['robot-test-gemini.netlify.app'], // Specify allowed origins for CORS
   credentials: true // Allow cookies for authenticated requests (if applicable)
 }));
 app.use(express.json()); // Parse incoming JSON data
