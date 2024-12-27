@@ -9,7 +9,7 @@ const app = express();
 const port = process.env.PORT || 3001;
 
 app.use(cors({
-  origin: ['https://robot-test-gemini.netlify.app', 'http://localhost:3000'],
+  origin: ['https://robot-test-gemini.netlify.app/', 'http://localhost:3000'],
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type'],
   credentials: true
